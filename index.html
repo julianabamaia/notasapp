@@ -1036,18 +1036,14 @@ document.getElementById('file-restore-input').addEventListener('change',(e)=>{
     try{
       const data=JSON.parse(ev.target.result);
       if(!data.sections) throw new Error('Formato inválido');
-      openModal('Restaurar Backup',
-        `<p style="font-size:14px;color:var(--ink2);margin-bottom:16px">Restaurar backup de <strong>${file.name}</strong>?<br><br>⚠️ Isso vai <strong>substituir todos os dados atuais</strong>. Esta ação não pode ser desfeita.</p>`,
-        ()=>{
-          state=data;
-          if(!state.birthdays) state.birthdays=[];
-          saveLocal();
-          syncToSheets();
-          render();
-          showToast('Backup restaurado com sucesso!');
-          return true;
-        }
-      );
+      const ok=confirm('Restaurar backup de "'+file.name+'"?\n\n⚠️ Isso vai substituir todos os dados atuais. Esta ação não pode ser desfeita.');
+      if(!ok) return;
+      state=data;
+      if(!state.birthdays) state.birthdays=[];
+      saveLocal();
+      syncToSheets();
+      render();
+      showToast('Backup restaurado com sucesso!');
     }catch(err){
       showToast('Arquivo inválido — use um backup .json gerado por este app');
     }
