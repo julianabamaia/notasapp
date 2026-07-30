@@ -286,6 +286,66 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
   }
   #editor table td { background: var(--panel); }
   #editor table tr:hover td { background: var(--bg2); }
+
+  /* ── GLOBAL SEARCH ── */
+  #global-search-overlay{position:fixed;inset:0;background:rgba(42,37,32,0.6);z-index:20000;display:none;align-items:flex-start;justify-content:center;padding-top:80px;}
+  #global-search-overlay.show{display:flex;}
+  #global-search-box{background:var(--panel);border-radius:12px;width:560px;max-height:70vh;display:flex;flex-direction:column;box-shadow:0 24px 60px var(--shadow2);border:1px solid var(--border);overflow:hidden;}
+  #global-search-input{width:100%;background:none;border:none;border-bottom:1px solid var(--border);padding:16px 20px;font-size:16px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;}
+  #global-search-input::placeholder{color:var(--ink3);}
+  #global-search-results{overflow-y:auto;flex:1;}
+  #global-search-results::-webkit-scrollbar{width:4px;}
+  #global-search-results::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .gs-result{padding:10px 20px;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.1s;}
+  .gs-result:hover{background:var(--accent-bg);}
+  .gs-result-title{font-size:14px;font-weight:500;color:var(--ink);}
+  .gs-result-meta{font-size:11px;color:var(--ink3);margin-top:2px;font-family:'DM Mono',monospace;}
+  .gs-result-preview{font-size:12px;color:var(--ink2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .gs-result mark{background:var(--accent-bg);color:var(--accent);border-radius:2px;padding:0 2px;}
+  .gs-empty{padding:24px;text-align:center;color:var(--ink3);font-size:14px;}
+  #gs-shortcut{padding:8px 20px;font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+
+  /* ── PAGE META (datas) ── */
+  #page-meta{padding:4px 20px 6px;font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;display:flex;gap:16px;}
+
+  /* ── TAGS ── */
+  #page-tags-bar{padding:6px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--panel);flex-shrink:0;min-height:36px;}
+  .page-tag{display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink2);font-family:'DM Mono',monospace;cursor:default;}
+  .page-tag .tag-del{cursor:pointer;color:var(--ink3);font-size:10px;margin-left:2px;transition:color 0.15s;}
+  .page-tag .tag-del:hover{color:var(--red);}
+  #btn-add-tag{background:none;border:1px dashed var(--border2);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink3);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.15s;}
+  #btn-add-tag:hover{border-color:var(--accent);color:var(--accent);}
+  #tag-input-wrap{display:none;align-items:center;gap:4px;}
+  #tag-input-wrap.show{display:flex;}
+  #tag-input{background:var(--bg2);border:1px solid var(--accent);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink);font-family:'DM Mono',monospace;outline:none;width:100px;}
+  .tag-filter-chip{display:inline-flex;align-items:center;gap:4px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--accent);font-family:'DM Mono',monospace;cursor:pointer;margin:2px;}
+  .tag-filter-chip.active{background:var(--accent);color:#fff;}
+
+  /* ── QUICK NOTE ── */
+  #quick-note-bar{padding:6px 16px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--bg3);flex-shrink:0;}
+  #quick-note-bar.hidden{display:none;}
+  #quick-note-input{flex:1;background:var(--panel);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color 0.15s;}
+  #quick-note-input:focus{border-color:var(--accent);}
+  #quick-note-input::placeholder{color:var(--ink3);}
+  #btn-quick-save{background:var(--accent);border:none;color:#fff;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background 0.15s;}
+  #btn-quick-save:hover{background:var(--accent2);}
+  #btn-quick-toggle{background:none;border:1px solid #555;color:#ccc;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap;}
+  #btn-quick-toggle:hover{background:#333;color:#fff;}
+
+  /* ── VERSION HISTORY ── */
+  #version-badge{font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;cursor:pointer;padding:2px 6px;border-radius:4px;border:1px solid transparent;transition:all 0.15s;white-space:nowrap;}
+  #version-badge:hover{border-color:var(--border2);background:var(--bg2);}
+
+  /* ── REMINDER ── */
+  .reminder-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-left:4px;vertical-align:middle;}
+  #reminder-banner{background:var(--yellow);color:#2a1a00;padding:8px 20px;font-size:13px;font-family:'DM Sans',sans-serif;display:none;align-items:center;gap:10px;flex-shrink:0;border-bottom:1px solid #b8880a;}
+  #reminder-banner.show{display:flex;}
+  #reminder-banner b{font-weight:600;}
+  #btn-dismiss-reminder{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#2a1a00;opacity:0.6;}
+  #btn-dismiss-reminder:hover{opacity:1;}
+
+  /* ── EXPORT PDF SECTION ── */
+  /* uses existing modal */
 </style>
 </head>
 <body>
@@ -294,6 +354,8 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
   <div class="logo">notas<span>.</span></div>
   <div id="topbar-spacer"></div>
   <div id="sync-status"><div id="sync-dot"></div><span id="sync-label">sem conexão</span></div>
+  <button class="tb-btn" id="btn-global-search" title="Busca global (Ctrl+F)">🔍 Buscar</button>
+  <button class="tb-btn" id="btn-quick-toggle">📝 Nota rápida</button>
   <button class="tb-btn" id="btn-import">📥 Importar .docx</button>
   <button class="tb-btn" id="btn-export-page" title="Exportar página atual como HTML">⬇ Exportar pág.</button>
   <button class="tb-btn" id="btn-backup" title="Backup completo">💾 Backup</button>
@@ -303,6 +365,16 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
 
 </div>
 
+<div id="reminder-banner">
+  <span id="reminder-text"></span>
+  <button id="btn-dismiss-reminder">✕</button>
+</div>
+<div id="quick-note-bar" class="hidden">
+  <span style="font-size:12px;color:var(--ink3);white-space:nowrap;font-family:'DM Mono',monospace;">📝 nota rápida →</span>
+  <input type="text" id="quick-note-input" placeholder="Digite algo e pressione Enter para salvar em Notas Rápidas...">
+  <select id="quick-note-section" style="background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:4px 8px;font-size:12px;color:var(--ink);font-family:'DM Sans',sans-serif;outline:none;"></select>
+  <button id="btn-quick-save">Salvar</button>
+</div>
 <div id="layout">
   <div id="sidebar">
     <div id="sidebar-header">Seções
@@ -327,6 +399,18 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
   <div id="editor-area">
     <div id="editor-topbar">
       <input type="text" id="page-title-input" placeholder="Título da página..." autocomplete="off" disabled>
+      <span id="version-badge" title="Ver versão anterior">↩ anterior</span>
+      <button id="btn-set-reminder" title="Definir lembrete" style="background:none;border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-size:12px;cursor:pointer;color:var(--ink3);transition:all 0.15s;white-space:nowrap;">⏰</button>
+    </div>
+    <div id="page-meta"></div>
+    <div id="page-tags-bar">
+      <span id="tag-filter-area"></span>
+      <button id="btn-add-tag">+ tag</button>
+      <div id="tag-input-wrap">
+        <input type="text" id="tag-input" placeholder="ex: reunião" maxlength="20">
+        <button id="btn-tag-confirm" style="background:var(--accent);border:none;color:#fff;border-radius:10px;padding:2px 8px;font-size:11px;cursor:pointer;">✓</button>
+        <button id="btn-tag-cancel" style="background:none;border:none;color:var(--ink3);cursor:pointer;font-size:13px;">✕</button>
+      </div>
     </div>
     <div id="format-toolbar">
       <select class="fmt-select" id="fmt-heading">
@@ -462,6 +546,15 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
 
 <div id="toast"></div>
 
+<!-- GLOBAL SEARCH -->
+<div id="global-search-overlay">
+  <div id="global-search-box">
+    <input type="text" id="global-search-input" placeholder="Buscar em todas as seções...">
+    <div id="global-search-results"></div>
+    <div id="gs-shortcut"><span>Ctrl+F para abrir · Esc para fechar</span><span id="gs-count"></span></div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════
 // STATE
@@ -469,7 +562,7 @@ input[type="color"].fmt-color-input{width:28px;height:28px;border:1px solid var(
 const STORAGE_KEY = 'notas_app_v1';
 const SECTION_COLORS = ['#c0480a','#2d7a4f','#1a5f8a','#7a3fa0','#c49010','#c0306a','#3a7a6a','#555'];
 
-let state = { sections:[], activeSectionId:null, activePageId:null, birthdays:[] };
+let state = { sections:[], activeSectionId:null, activePageId:null, birthdays:[], quickNotes:[], allTags:[] };
 let cfg = { url:'', key:'' };
 let ctxTarget = null;
 let saveTimer = null;
@@ -620,9 +713,16 @@ function renderPages(filterText=''){
   list.innerHTML='';
   const sec=getSection(state.activeSectionId);
   if(!sec) return;
-  const q=filterText.toLowerCase();
+  const q=filterText.toLowerCase().trim();
   const all=[...sec.pages.filter(p=>p.pinned),...sec.pages.filter(p=>!p.pinned)];
-  const pages=all.filter(p=>!q||p.title.toLowerCase().includes(q)||stripHtml(p.content).toLowerCase().includes(q));
+  const pages=all.filter(p=>{
+    if(!q) return true;
+    if(q.startsWith('#')){
+      const tag=q.slice(1);
+      return (p.tags||[]).some(t=>t.includes(tag));
+    }
+    return p.title.toLowerCase().includes(q)||stripHtml(p.content).toLowerCase().includes(q)||(p.tags||[]).some(t=>t.includes(q));
+  });
   if(!pages.length){list.innerHTML=`<div style="text-align:center;padding:24px;color:var(--ink3);font-size:13px;">${q?'Nenhum resultado':'Nenhuma página ainda'}</div>`;return;}
   pages.forEach(pg=>{
     const div=document.createElement('div');
@@ -658,12 +758,62 @@ function renderEditor(){
   const pg=getActivePage();
   const editor=document.getElementById('editor');
   const titleInput=document.getElementById('page-title-input');
-  if(!pg){editor.contentEditable='false';editor.innerHTML='';editor.dataset.placeholder='Selecione uma página para editar...';titleInput.value='';titleInput.disabled=true;return;}
+  const metaDiv=document.getElementById('page-meta');
+  const tagsBar=document.getElementById('page-tags-bar');
+  const versionBadge=document.getElementById('version-badge');
+  const reminderBtn=document.getElementById('btn-set-reminder');
+
+  if(!pg){
+    editor.contentEditable='false';editor.innerHTML='';
+    editor.dataset.placeholder='Selecione uma página para editar...';
+    titleInput.value='';titleInput.disabled=true;
+    metaDiv.innerHTML='';
+    tagsBar.style.display='none';
+    versionBadge.style.display='none';
+    reminderBtn.style.display='none';
+    return;
+  }
   titleInput.disabled=false;
   titleInput.value=pg.title||'';
   editor.contentEditable='true';
   editor.dataset.placeholder='Escreva aqui...';
   if(editor.innerHTML!==(pg.content||'')) editor.innerHTML=pg.content||'';
+
+  // Meta dates
+  const fmt=(ts)=>ts?new Date(ts).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}):'—';
+  metaDiv.innerHTML=`<span>criado: ${fmt(pg.createdAt)}</span><span>atualizado: ${fmt(pg.updatedAt)}</span>${pg.reminder?'<span style="color:var(--yellow)">⏰ '+fmt(pg.reminder)+'</span>':''}`;
+
+  // Tags bar
+  tagsBar.style.display='flex';
+  renderTagsBar(pg);
+
+  // Version badge
+  versionBadge.style.display=pg.prevContent?'inline-block':'none';
+  reminderBtn.style.display='inline-block';
+  reminderBtn.style.color=pg.reminder?'var(--yellow)':'var(--ink3)';
+  reminderBtn.style.borderColor=pg.reminder?'var(--yellow)':'var(--border)';
+}
+
+function renderTagsBar(pg){
+  const filterArea=document.getElementById('tag-filter-area');
+  const addBtn=document.getElementById('btn-add-tag');
+  const wrap=document.getElementById('tag-input-wrap');
+  wrap.classList.remove('show');
+
+  // Show existing tags
+  const existingTags=filterArea.querySelectorAll('.page-tag');
+  existingTags.forEach(t=>t.remove());
+
+  (pg.tags||[]).forEach(tag=>{
+    const el=document.createElement('span');
+    el.className='page-tag';
+    el.innerHTML=`#${esc(tag)}<span class="tag-del" data-tag="${esc(tag)}">✕</span>`;
+    el.querySelector('.tag-del').addEventListener('click',()=>{
+      pg.tags=pg.tags.filter(t=>t!==tag);
+      renderTagsBar(pg);scheduleSave();
+    });
+    filterArea.appendChild(el);
+  });
 }
 
 function renderPagesTitle(){
@@ -680,7 +830,13 @@ function selectSection(id){flushEditorToState();state.activeSectionId=id;state.a
 function selectPage(id){flushEditorToState();state.activePageId=id;render();document.getElementById('editor').focus();}
 function flushEditorToState(){
   const pg=getActivePage(); if(!pg) return;
-  pg.content=document.getElementById('editor').innerHTML;
+  const newContent=document.getElementById('editor').innerHTML;
+  // Save previous version if content changed significantly (>20 chars diff)
+  if(pg.content && Math.abs((pg.content||'').length - newContent.length) > 20){
+    pg.prevContent=pg.content;
+    pg.prevUpdatedAt=pg.updatedAt;
+  }
+  pg.content=newContent;
   pg.title=document.getElementById('page-title-input').value;
   pg.updatedAt=Date.now();
 }
@@ -981,6 +1137,66 @@ document.getElementById('btn-export-page').addEventListener('click',()=>{
 h1,h2,h3{color:#2a2520;}table{border-collapse:collapse;width:100%;}
 td,th{border:1px solid #ccc;padding:8px;}th{background:#f0ede8;}
 a{color:#1a5f8a;}.link-card{display:inline-flex;align-items:center;gap:8px;background:#f0ede8;border:1px solid #ccc;border-radius:6px;padding:6px 10px;text-decoration:none;color:#2a2520;}
+
+  /* ── GLOBAL SEARCH ── */
+  #global-search-overlay{position:fixed;inset:0;background:rgba(42,37,32,0.6);z-index:20000;display:none;align-items:flex-start;justify-content:center;padding-top:80px;}
+  #global-search-overlay.show{display:flex;}
+  #global-search-box{background:var(--panel);border-radius:12px;width:560px;max-height:70vh;display:flex;flex-direction:column;box-shadow:0 24px 60px var(--shadow2);border:1px solid var(--border);overflow:hidden;}
+  #global-search-input{width:100%;background:none;border:none;border-bottom:1px solid var(--border);padding:16px 20px;font-size:16px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;}
+  #global-search-input::placeholder{color:var(--ink3);}
+  #global-search-results{overflow-y:auto;flex:1;}
+  #global-search-results::-webkit-scrollbar{width:4px;}
+  #global-search-results::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  .gs-result{padding:10px 20px;cursor:pointer;border-bottom:1px solid var(--border);transition:background 0.1s;}
+  .gs-result:hover{background:var(--accent-bg);}
+  .gs-result-title{font-size:14px;font-weight:500;color:var(--ink);}
+  .gs-result-meta{font-size:11px;color:var(--ink3);margin-top:2px;font-family:'DM Mono',monospace;}
+  .gs-result-preview{font-size:12px;color:var(--ink2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .gs-result mark{background:var(--accent-bg);color:var(--accent);border-radius:2px;padding:0 2px;}
+  .gs-empty{padding:24px;text-align:center;color:var(--ink3);font-size:14px;}
+  #gs-shortcut{padding:8px 20px;font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+
+  /* ── PAGE META (datas) ── */
+  #page-meta{padding:4px 20px 6px;font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;display:flex;gap:16px;}
+
+  /* ── TAGS ── */
+  #page-tags-bar{padding:6px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--panel);flex-shrink:0;min-height:36px;}
+  .page-tag{display:inline-flex;align-items:center;gap:4px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink2);font-family:'DM Mono',monospace;cursor:default;}
+  .page-tag .tag-del{cursor:pointer;color:var(--ink3);font-size:10px;margin-left:2px;transition:color 0.15s;}
+  .page-tag .tag-del:hover{color:var(--red);}
+  #btn-add-tag{background:none;border:1px dashed var(--border2);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink3);cursor:pointer;font-family:'DM Mono',monospace;transition:all 0.15s;}
+  #btn-add-tag:hover{border-color:var(--accent);color:var(--accent);}
+  #tag-input-wrap{display:none;align-items:center;gap:4px;}
+  #tag-input-wrap.show{display:flex;}
+  #tag-input{background:var(--bg2);border:1px solid var(--accent);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--ink);font-family:'DM Mono',monospace;outline:none;width:100px;}
+  .tag-filter-chip{display:inline-flex;align-items:center;gap:4px;background:var(--accent-bg);border:1px solid var(--accent);border-radius:12px;padding:2px 8px;font-size:11px;color:var(--accent);font-family:'DM Mono',monospace;cursor:pointer;margin:2px;}
+  .tag-filter-chip.active{background:var(--accent);color:#fff;}
+
+  /* ── QUICK NOTE ── */
+  #quick-note-bar{padding:6px 16px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;background:var(--bg3);flex-shrink:0;}
+  #quick-note-bar.hidden{display:none;}
+  #quick-note-input{flex:1;background:var(--panel);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color 0.15s;}
+  #quick-note-input:focus{border-color:var(--accent);}
+  #quick-note-input::placeholder{color:var(--ink3);}
+  #btn-quick-save{background:var(--accent);border:none;color:#fff;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:background 0.15s;}
+  #btn-quick-save:hover{background:var(--accent2);}
+  #btn-quick-toggle{background:none;border:1px solid #555;color:#ccc;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:all 0.15s;white-space:nowrap;}
+  #btn-quick-toggle:hover{background:#333;color:#fff;}
+
+  /* ── VERSION HISTORY ── */
+  #version-badge{font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;cursor:pointer;padding:2px 6px;border-radius:4px;border:1px solid transparent;transition:all 0.15s;white-space:nowrap;}
+  #version-badge:hover{border-color:var(--border2);background:var(--bg2);}
+
+  /* ── REMINDER ── */
+  .reminder-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-left:4px;vertical-align:middle;}
+  #reminder-banner{background:var(--yellow);color:#2a1a00;padding:8px 20px;font-size:13px;font-family:'DM Sans',sans-serif;display:none;align-items:center;gap:10px;flex-shrink:0;border-bottom:1px solid #b8880a;}
+  #reminder-banner.show{display:flex;}
+  #reminder-banner b{font-weight:600;}
+  #btn-dismiss-reminder{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#2a1a00;opacity:0.6;}
+  #btn-dismiss-reminder:hover{opacity:1;}
+
+  /* ── EXPORT PDF SECTION ── */
+  /* uses existing modal */
 </style></head><body>
 <h1>${pg.title||'(sem título)'}</h1>
 ${pg.content||''}
@@ -999,7 +1215,8 @@ document.getElementById('btn-backup').addEventListener('click',()=>{
   openModal('Backup / Restaurar',
     `<p style="font-size:14px;color:var(--ink2);margin-bottom:16px">Escolha uma opção:</p>
      <div style="display:flex;flex-direction:column;gap:8px;">
-       <button class="btn-ok" id="do-export" style="width:100%;text-align:left;padding:10px 14px;">💾 Exportar backup (.json)</button>
+       <button class="btn-ok" id="do-export-sec" style="width:100%;text-align:left;padding:10px 14px;">🖨 Exportar seção atual como PDF</button>
+       <button class="btn-ok" id="do-export" style="width:100%;text-align:left;padding:10px 14px;">💾 Exportar backup completo (.json)</button>
        <button class="btn-cancel" id="do-import" style="width:100%;text-align:left;padding:10px 14px;">📂 Restaurar de backup (.json)</button>
      </div>`,
     ()=>true
@@ -1007,6 +1224,11 @@ document.getElementById('btn-backup').addEventListener('click',()=>{
   document.getElementById('modal-ok').style.display='none';
   document.getElementById('modal-cancel').textContent='Fechar';
   setTimeout(()=>{
+    const doExportSec=document.getElementById('do-export-sec');
+    if(doExportSec) doExportSec.addEventListener('click',()=>{
+      document.getElementById('modal-overlay').classList.remove('show');
+      exportSectionAsPDF();
+    });
     const doExport=document.getElementById('do-export');
     const doImport=document.getElementById('do-import');
     if(doExport) doExport.addEventListener('click',()=>{
@@ -1247,18 +1469,284 @@ function splitHtmlByHeadings(html,fallbackTitle){
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
+// ═══════════════════════════════════════
+// GLOBAL SEARCH
+// ═══════════════════════════════════════
+document.getElementById('btn-global-search').addEventListener('click', openGlobalSearch);
+document.addEventListener('keydown',(e)=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='f'&&!document.getElementById('editor').contains(document.activeElement)){
+    e.preventDefault(); openGlobalSearch();
+  }
+  if(e.key==='Escape') closeGlobalSearch();
+});
+document.getElementById('global-search-overlay').addEventListener('click',(e)=>{
+  if(e.target===document.getElementById('global-search-overlay')) closeGlobalSearch();
+});
+document.getElementById('global-search-input').addEventListener('input',(e)=>doGlobalSearch(e.target.value));
+
+function openGlobalSearch(){
+  document.getElementById('global-search-overlay').classList.add('show');
+  document.getElementById('global-search-input').value='';
+  document.getElementById('global-search-results').innerHTML='<div class="gs-empty">Digite para buscar em todas as seções...</div>';
+  document.getElementById('gs-count').textContent='';
+  setTimeout(()=>document.getElementById('global-search-input').focus(),50);
+}
+function closeGlobalSearch(){
+  document.getElementById('global-search-overlay').classList.remove('show');
+}
+function doGlobalSearch(q){
+  const res=document.getElementById('global-search-results');
+  const cnt=document.getElementById('gs-count');
+  if(!q.trim()){res.innerHTML='<div class="gs-empty">Digite para buscar...</div>';cnt.textContent='';return;}
+  const ql=q.toLowerCase();
+  const results=[];
+  state.sections.forEach(sec=>{
+    sec.pages.forEach(pg=>{
+      const inTitle=pg.title&&pg.title.toLowerCase().includes(ql);
+      const inContent=pg.content&&stripHtml(pg.content).toLowerCase().includes(ql);
+      const inTags=(pg.tags||[]).some(t=>t.toLowerCase().includes(ql));
+      if(inTitle||inContent||inTags){
+        results.push({sec,pg,inTitle,inContent,inTags});
+      }
+    });
+  });
+  cnt.textContent=results.length+' resultado'+(results.length!==1?'s':'');
+  if(!results.length){res.innerHTML='<div class="gs-empty">Nenhum resultado para "'+esc(q)+'"</div>';return;}
+  res.innerHTML=results.map(({sec,pg,inTitle,inContent})=>{
+    const preview=stripHtml(pg.content||'').slice(0,100);
+    const hi=(text,term)=>{try{const re=new RegExp('('+term.replace(/[-.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return text.replace(re,'<mark>$1</mark>');}catch(e){return text;}};
+    return `<div class="gs-result" data-sid="${sec.id}" data-pid="${pg.id}">
+      <div class="gs-result-title">${hi(esc(pg.title||'(sem título)'),q)}</div>
+      <div class="gs-result-meta">📁 ${esc(sec.name)}${(pg.tags||[]).length?' · #'+pg.tags.join(' #'):''}</div>
+      ${inContent?'<div class="gs-result-preview">'+hi(esc(preview),q)+'</div>':''}
+    </div>`;
+  }).join('');
+  res.querySelectorAll('.gs-result').forEach(el=>{
+    el.addEventListener('click',()=>{
+      selectSection(el.dataset.sid);
+      selectPage(el.dataset.pid);
+      closeGlobalSearch();
+    });
+  });
+}
+
+// ═══════════════════════════════════════
+// TAGS
+// ═══════════════════════════════════════
+document.getElementById('btn-add-tag').addEventListener('click',()=>{
+  const pg=getActivePage(); if(!pg) return;
+  const wrap=document.getElementById('tag-input-wrap');
+  wrap.classList.add('show');
+  document.getElementById('btn-add-tag').style.display='none';
+  setTimeout(()=>document.getElementById('tag-input').focus(),50);
+});
+document.getElementById('btn-tag-cancel').addEventListener('click',()=>{
+  document.getElementById('tag-input-wrap').classList.remove('show');
+  document.getElementById('btn-add-tag').style.display='';
+  document.getElementById('tag-input').value='';
+});
+function confirmTag(){
+  const pg=getActivePage(); if(!pg) return;
+  const val=document.getElementById('tag-input').value.trim().toLowerCase().replace(/[^a-záàãâéêíóôõúüçñ0-9_-]/gi,'');
+  if(val){
+    if(!pg.tags) pg.tags=[];
+    if(!pg.tags.includes(val)) pg.tags.push(val);
+    if(!state.allTags) state.allTags=[];
+    if(!state.allTags.includes(val)) state.allTags.push(val);
+    renderTagsBar(pg); scheduleSave();
+  }
+  document.getElementById('tag-input-wrap').classList.remove('show');
+  document.getElementById('btn-add-tag').style.display='';
+  document.getElementById('tag-input').value='';
+}
+document.getElementById('btn-tag-confirm').addEventListener('click', confirmTag);
+document.getElementById('tag-input').addEventListener('keydown',(e)=>{
+  if(e.key==='Enter') confirmTag();
+  if(e.key==='Escape'){ document.getElementById('btn-tag-cancel').click(); }
+});
+
+// Tag filter in pages list — filter pages by tag when clicking tag in search
+function filterPagesByTag(tag){
+  document.getElementById('search-input').value='#'+tag;
+  renderPages('#'+tag);
+}
+// Override renderPages to handle tag filter
+const _origRenderPages = renderPages;
+
+// ═══════════════════════════════════════
+// VERSION HISTORY
+// ═══════════════════════════════════════
+document.getElementById('version-badge').addEventListener('click',()=>{
+  const pg=getActivePage(); if(!pg||!pg.prevContent) return;
+  openModal('Versão Anterior',
+    `<p style="font-size:13px;color:var(--ink2);margin-bottom:12px">Atualizado em: <b>${pg.prevUpdatedAt?new Date(pg.prevUpdatedAt).toLocaleString('pt-BR'):'-'}</b></p>
+     <div style="max-height:200px;overflow-y:auto;background:var(--bg2);border-radius:6px;padding:10px;font-size:13px;line-height:1.5;color:var(--ink2);">${pg.prevContent}</div>
+     <p style="font-size:12px;color:var(--ink3);margin-top:10px;">Deseja restaurar esta versão? O conteúdo atual será perdido.</p>`,
+    ()=>{
+      const cur=pg.content;
+      const curUpd=pg.updatedAt;
+      pg.content=pg.prevContent;
+      pg.updatedAt=pg.prevUpdatedAt;
+      pg.prevContent=cur;
+      pg.prevUpdatedAt=curUpd;
+      document.getElementById('editor').innerHTML=pg.content;
+      scheduleSave();
+      showToast('Versão anterior restaurada!');
+      return true;
+    }
+  );
+  document.getElementById('modal-ok').textContent='Restaurar';
+});
+
+// ═══════════════════════════════════════
+// REMINDER
+// ═══════════════════════════════════════
+document.getElementById('btn-set-reminder').addEventListener('click',()=>{
+  const pg=getActivePage(); if(!pg) return;
+  const cur=pg.reminder?new Date(pg.reminder).toISOString().slice(0,16):'';
+  openModal('⏰ Lembrete',
+    `<label>Data e hora</label>
+     <input type="datetime-local" id="reminder-dt" value="${cur}" style="width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:14px;color:var(--ink);font-family:'DM Sans',sans-serif;outline:none;margin-bottom:14px;">
+     ${pg.reminder?'<button id="btn-clear-reminder" style="background:none;border:1px solid #d8d0c4;border-radius:6px;padding:6px 12px;font-size:12px;cursor:pointer;color:#b03020;font-family:sans-serif;">Remover lembrete</button>':''}`,
+    ()=>{
+      const val=document.getElementById('reminder-dt').value;
+      pg.reminder=val?new Date(val).getTime():null;
+      scheduleSave();
+      renderEditor();
+      showToast(val?'Lembrete definido!':'Lembrete removido');
+      return true;
+    }
+  );
+  setTimeout(()=>{
+    const clr=document.getElementById('btn-clear-reminder');
+    if(clr) clr.addEventListener('click',()=>{
+      pg.reminder=null; scheduleSave(); renderEditor();
+      document.getElementById('modal-overlay').classList.remove('show');
+      showToast('Lembrete removido');
+    });
+  },50);
+});
+
+function checkReminders(){
+  const now=Date.now();
+  const today=new Date(); today.setHours(0,0,0,0);
+  const todayEnd=new Date(); todayEnd.setHours(23,59,59,999);
+  const due=[];
+  state.sections.forEach(sec=>{
+    sec.pages.forEach(pg=>{
+      if(pg.reminder&&pg.reminder>=today.getTime()&&pg.reminder<=todayEnd.getTime()){
+        due.push({sec,pg});
+      }
+    });
+  });
+  const banner=document.getElementById('reminder-banner');
+  const text=document.getElementById('reminder-text');
+  if(due.length){
+    text.innerHTML='⏰ <b>Lembretes de hoje:</b> '+due.map(({sec,pg})=>`<span style="cursor:pointer;text-decoration:underline;" onclick="selectSection('${sec.id}');selectPage('${pg.id}');document.getElementById('reminder-banner').classList.remove('show')">${esc(pg.title)}</span>`).join(', ');
+    banner.classList.add('show');
+  }
+}
+document.getElementById('btn-dismiss-reminder').addEventListener('click',()=>{
+  document.getElementById('reminder-banner').classList.remove('show');
+});
+
+// ═══════════════════════════════════════
+// QUICK NOTE
+// ═══════════════════════════════════════
+document.getElementById('btn-quick-toggle').addEventListener('click',()=>{
+  const bar=document.getElementById('quick-note-bar');
+  const isHidden=bar.classList.toggle('hidden');
+  if(!isHidden){
+    // populate section selector
+    const sel=document.getElementById('quick-note-section');
+    sel.innerHTML=state.sections.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+    if(state.activeSectionId) sel.value=state.activeSectionId;
+    setTimeout(()=>document.getElementById('quick-note-input').focus(),50);
+  }
+});
+
+function saveQuickNote(){
+  const input=document.getElementById('quick-note-input');
+  const secId=document.getElementById('quick-note-section').value;
+  const text=input.value.trim();
+  if(!text) return;
+  const sec=getSection(secId)||state.sections[0];
+  if(!sec){showToast('Crie uma seção primeiro');return;}
+  const pg={
+    id:uid(), title:text.slice(0,60)+(text.length>60?'...':''),
+    content:'<p>'+text.split('\n').join('</p><p>')+'</p>',
+    createdAt:Date.now(), updatedAt:Date.now(), pinned:false, tags:['nota-rápida']
+  };
+  sec.pages.unshift(pg);
+  input.value='';
+  renderPages();scheduleSave();
+  showToast('Nota salva em "'+sec.name+'"!');
+}
+document.getElementById('btn-quick-save').addEventListener('click', saveQuickNote);
+document.getElementById('quick-note-input').addEventListener('keydown',(e)=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();saveQuickNote();}
+});
+
+// ═══════════════════════════════════════
+// EXPORT SECTION AS PDF (via print)
+// ═══════════════════════════════════════
+// Add to backup button: add export section option
+const origBackupClick = document.getElementById('btn-backup').onclick;
+document.getElementById('btn-backup').addEventListener('click', ()=>{}, true);
+
+// Override backup button to also show export section
+const _origBackupHandler = document.getElementById('btn-backup').onclick;
+
+function exportSectionAsPDF(){
+  const sec=getSection(state.activeSectionId);
+  if(!sec){showToast('Selecione uma seção primeiro');return;}
+  const pagesHtml=sec.pages.map(pg=>`
+    <div class="page-break">
+      <h1>${pg.title||'(sem título)'}</h1>
+      <div class="page-meta">Criado: ${pg.createdAt?new Date(pg.createdAt).toLocaleDateString('pt-BR'):'—'} · Atualizado: ${pg.updatedAt?new Date(pg.updatedAt).toLocaleDateString('pt-BR'):'—'}</div>
+      ${pg.content||''}
+    </div>`).join('<hr>');
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>${sec.name}</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;color:#2a2520;line-height:1.7;font-size:14px;}
+  h1{color:#c0480a;border-bottom:1px solid #d8d0c4;padding-bottom:8px;margin-top:32px;}
+  h2,h3{color:#2a2520;}
+  table{border-collapse:collapse;width:100%;margin:12px 0;}
+  td,th{border:1px solid #ccc;padding:8px;}th{background:#f0ede8;}
+  .page-meta{font-size:11px;color:#9e948a;font-family:monospace;margin-bottom:16px;}
+  .page-break{page-break-after:always;}
+  hr{border:none;border-top:2px solid #d8d0c4;margin:32px 0;}
+  a.link-card{display:inline-flex;align-items:center;gap:6px;background:#f0ede8;border:1px solid #ccc;border-radius:6px;padding:4px 8px;text-decoration:none;color:#2a2520;font-size:13px;}
+  @media print{.page-break{page-break-after:always;}}
+</style></head><body>
+<h1 style="font-size:24px;border-bottom:2px solid #c0480a;">📁 ${sec.name}</h1>
+<p style="color:#9e948a;font-size:12px;">${sec.pages.length} página(s) · Exportado em ${new Date().toLocaleDateString('pt-BR')}</p>
+${pagesHtml}
+</body></html>`);
+  win.document.close();
+  setTimeout(()=>win.print(),500);
+}
+
 async function init(){
   loadLocal();
+  if(!state.allTags) state.allTags=[];
+  if(!state.quickNotes) state.quickNotes=[];
   const ok=await loadFromSheets();
   if(!ok) setSyncStatus('err','offline (local)');
   if(!state.sections.length){
     const sec={id:uid(),name:'Bem-vindo',color:'#c0480a',pages:[],pinned:false};
-    const pg={id:uid(),title:'Introdução',content:`<h2>Bem-vindo ao <b>notas.</b></h2><p>Crie seções na barra lateral e páginas dentro delas.</p><p><b>Dica:</b> arraste seções e páginas para reordenar. Clique com botão direito para fixar no topo, renomear ou excluir.</p><p>Clique em 🎂 <b>Aniversários</b> para abrir o painel do time.</p>`,createdAt:Date.now(),updatedAt:Date.now(),pinned:false};
+    const pg={id:uid(),title:'Introdução',content:`<h2>Bem-vindo ao <b>notas.</b></h2><p>Crie seções na barra lateral e páginas dentro delas.</p><p>Use <b>🔍 Buscar</b> para busca global · <b>📝 Nota rápida</b> para captura rápida · <b>⏰</b> para lembretes em páginas.</p>`,createdAt:Date.now(),updatedAt:Date.now(),pinned:false};
     sec.pages.push(pg);state.sections.push(sec);
     state.activeSectionId=sec.id;state.activePageId=pg.id;
     saveLocal();
   }
   render();
+  // Check reminders on load
+  setTimeout(checkReminders, 800);
+  // Re-check reminders every hour
+  setInterval(checkReminders, 60*60*1000);
 }
 init();
 </script>
