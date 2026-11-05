@@ -586,76 +586,60 @@ function saveLocal() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 function saveCfg()   { localStorage.setItem(STORAGE_KEY+'_cfg', JSON.stringify(cfg)); }
 
 // ═══════════════════════════════════════
-// ── Supabase backend ──
+// ── Google Apps Script backend ──
 // ═══════════════════════════════════════
-const SB_URL = 'https://sxrqswxykzrmvhuqaupf.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4cnFzd3h5a3pybXZodXFhdXBmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExODc4NjQsImV4cCI6MjA5Njc2Mzg2NH0.UyvexG7hBPvndpCviP1n2X_pX-b03DGMqxSw2Do5wCQ';
-const SB_TABLE = 'notas';
-const SB_ROW_ID = 'main';
+let GAS_URL = localStorage.getItem('notas_gas_url') || '';
 
 function setSyncStatus(s,l){
   const dot=document.getElementById('sync-dot'), lbl=document.getElementById('sync-label');
   dot.className=''; if(s) dot.classList.add(s); lbl.textContent=l;
 }
 
-function sbHeaders(){
-  return {
-    'Content-Type': 'application/json',
-    'apikey': SB_KEY,
-    'Authorization': 'Bearer ' + SB_KEY,
-    'Prefer': 'resolution=merge-duplicates'
-  };
-}
-
 async function syncToSheets(){
+  if(!GAS_URL){ setSyncStatus('err','configure a URL do script'); return; }
   if(isSyncing) return;
   isSyncing=true;
   const kb=Math.round(JSON.stringify(state).length/1024);
   setSyncStatus('busy','salvando ('+kb+'kb)...');
   try{
-    const resp=await fetch(SB_URL+'/rest/v1/'+SB_TABLE, {
-      method: 'POST',
-      headers: sbHeaders(),
-      body: JSON.stringify({ id: SB_ROW_ID, data: JSON.stringify(state) })
+    const data=JSON.stringify(state);
+    const resp=await fetch(GAS_URL, {
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:data
     });
-    if(!resp.ok){
-      const err=await resp.text();
-      throw new Error('HTTP '+resp.status+' '+err);
-    }
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
     setSyncStatus('ok','salvo '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
   }catch(e){
     console.error('Sync error:',e);
-    setSyncStatus('err','erro — Ctrl+S p/ tentar novamente');
+    setSyncStatus('err','erro ao salvar');
   }
   isSyncing=false;
 }
 
 async function loadFromSheets(){
+  if(!GAS_URL){ setSyncStatus('err','cole a URL do script nas configurações'); return false; }
   setSyncStatus('busy','carregando...');
   try{
-    const resp=await fetch(SB_URL+'/rest/v1/'+SB_TABLE+'?id=eq.'+SB_ROW_ID+'&select=data', {
-      headers: {
-        'apikey': SB_KEY,
-        'Authorization': 'Bearer ' + SB_KEY
-      }
-    });
+    const resp=await fetch(GAS_URL+'?action=load');
     if(!resp.ok) throw new Error('HTTP '+resp.status);
-    const rows=await resp.json();
-    if(rows&&rows.length>0&&rows[0].data){
-      const data=JSON.parse(rows[0].data);
+    const text=await resp.text();
+    if(text&&text.startsWith('{')){
+      const data=JSON.parse(text);
       if(data&&data.sections){
         state=data;
         if(!state.birthdays) state.birthdays=[];
+        if(!state.allTags) state.allTags=[];
         saveLocal();
         setSyncStatus('ok','carregado');
         return true;
       }
     }
-    setSyncStatus('ok','conectado');
+    setSyncStatus('ok','conectado (vazio)');
     return true;
   }catch(e){
     console.error('Load error:',e);
-    setSyncStatus('err','sem conexão');
+    setSyncStatus('err','offline (local)');
     return false;
   }
 }
@@ -1728,6 +1712,28 @@ ${pagesHtml}
   win.document.close();
   setTimeout(()=>win.print(),500);
 }
+
+// ═══════════════════════════════════════
+// CONFIG URL
+// ═══════════════════════════════════════
+document.getElementById('btn-config-url').addEventListener('click',()=>{
+  openModal('⚙ URL do Google Apps Script',
+    `<p style="font-size:13px;color:var(--ink2);margin-bottom:10px">Cole a URL do Web App publicado no Apps Script:</p>
+     <input type="text" id="gas-url-input" value="${GAS_URL}" placeholder="https://script.google.com/macros/s/..." style="width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:12px;color:var(--ink);font-family:'DM Mono',sans-serif;outline:none;box-sizing:border-box;">
+     <p style="font-size:11px;color:var(--ink3);margin-top:8px;">A URL fica salva no navegador. Você precisa configurar em cada dispositivo que usar o app.</p>`,
+    ()=>{
+      const val=document.getElementById('gas-url-input').value.trim();
+      if(!val){ showToast('Cole a URL do script'); return false; }
+      GAS_URL=val;
+      localStorage.setItem('notas_gas_url', val);
+      showToast('URL salva! Recarregando dados...');
+      loadFromSheets().then(ok=>{ if(ok) render(); });
+      return true;
+    }
+  );
+  document.getElementById('modal-ok').textContent='Salvar URL';
+  setTimeout(()=>{ const i=document.getElementById('gas-url-input'); if(i){i.select();} },100);
+});
 
 async function init(){
   loadLocal();
