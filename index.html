@@ -867,8 +867,13 @@ function openModal(title,bodyHTML,onOk){
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-body').innerHTML=bodyHTML;
   document.getElementById('modal-overlay').classList.add('show');
+  // always reset OK button to visible/default state
+  const okBtn=document.getElementById('modal-ok');
+  okBtn.style.display='';
+  okBtn.textContent='OK';
+  document.getElementById('modal-cancel').textContent='Cancelar';
   const close=()=>document.getElementById('modal-overlay').classList.remove('show');
-  document.getElementById('modal-ok').onclick=()=>{if(onOk())close();};
+  okBtn.onclick=()=>{if(onOk())close();};
   document.getElementById('modal-cancel').onclick=close;
   setTimeout(()=>{const i=document.querySelector('#modal-body input,#modal-body select');if(i)i.focus();},50);
 }
