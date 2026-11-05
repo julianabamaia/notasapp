@@ -1199,6 +1199,7 @@ document.getElementById('btn-backup').addEventListener('click',()=>{
   openModal('Backup / Restaurar',
     `<p style="font-size:14px;color:var(--ink2);margin-bottom:16px">Escolha uma opção:</p>
      <div style="display:flex;flex-direction:column;gap:8px;">
+       <button class="btn-ok" id="do-config-url" style="width:100%;text-align:left;padding:10px 14px;">⚙ Configurar URL do script</button>
        <button class="btn-ok" id="do-export-sec" style="width:100%;text-align:left;padding:10px 14px;">🖨 Exportar seção atual como PDF</button>
        <button class="btn-ok" id="do-export" style="width:100%;text-align:left;padding:10px 14px;">💾 Exportar backup completo (.json)</button>
        <button class="btn-cancel" id="do-import" style="width:100%;text-align:left;padding:10px 14px;">📂 Restaurar de backup (.json)</button>
@@ -1208,6 +1209,11 @@ document.getElementById('btn-backup').addEventListener('click',()=>{
   document.getElementById('modal-ok').style.display='none';
   document.getElementById('modal-cancel').textContent='Fechar';
   setTimeout(()=>{
+    const doConfigUrl=document.getElementById('do-config-url');
+    if(doConfigUrl) doConfigUrl.addEventListener('click',()=>{
+      document.getElementById('modal-overlay').classList.remove('show');
+      setTimeout(()=>document.getElementById('btn-config-url-trigger').click(),100);
+    });
     const doExportSec=document.getElementById('do-export-sec');
     if(doExportSec) doExportSec.addEventListener('click',()=>{
       document.getElementById('modal-overlay').classList.remove('show');
@@ -1716,7 +1722,12 @@ ${pagesHtml}
 // ═══════════════════════════════════════
 // CONFIG URL
 // ═══════════════════════════════════════
-document.getElementById('btn-config-url').addEventListener('click',()=>{
+// hidden trigger for config URL (called from backup modal)
+const _cfgTrigger = document.createElement('button');
+_cfgTrigger.id = 'btn-config-url-trigger';
+_cfgTrigger.style.display = 'none';
+document.body.appendChild(_cfgTrigger);
+_cfgTrigger.addEventListener('click',()=>{
   openModal('⚙ URL do Google Apps Script',
     `<p style="font-size:13px;color:var(--ink2);margin-bottom:10px">Cole a URL do Web App publicado no Apps Script:</p>
      <input type="text" id="gas-url-input" value="${GAS_URL}" placeholder="https://script.google.com/macros/s/..." style="width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-size:12px;color:var(--ink);font-family:'DM Mono',sans-serif;outline:none;box-sizing:border-box;">
